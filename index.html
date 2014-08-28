@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Node-ipc : Inter Process Communication Module for node supporting Unix sockets, TCP, TLS, and UDP. Giving lightning speed on Linux, Mac, and Windows. Neural Networking in Node.JS" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Node-ipc : Inter Process Communication Module for node supporting Unix sockets, TCP, TLS, and UDP. Giving lightning speed on Linux, Mac, and Windows. Neural Networking in Node.JS">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -46,7 +46,37 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 <a href="http://riaevangelist.github.io/node-ipc/" title="node-ipc documentation">GitHub.io site</a>. A prettier version of this site.</li>
 <li>
 <a href="https://www.npmjs.org/package/node-ipc" title="node-ipc npm module">NPM Module</a>. The npm page for the node-ipc module.</li>
-</ul><hr><h4>
+</ul><p>This work is licenced via the <a href="http://www.dbad-license.org/">DBAD Public Licence</a>. </p>
+
+<hr><h4>
+<a name="contents" class="anchor" href="#contents"><span class="octicon octicon-link"></span></a>Contents</h4>
+
+<ol>
+<li><a href="#types-of-ipc-sockets">Types of IPC Sockets and Supporting OS</a></li>
+<li>
+<a href="#ipc-methods">IPC Methods</a>
+
+<ol>
+<li><a href="#log">log</a></li>
+<li><a href="#connectto">connectTo</a></li>
+<li><a href="#connecttonet">connectToNet</a></li>
+<li><a href="#disconnect">disconnect</a></li>
+<li><a href="#serve">serve</a></li>
+<li><a href="#servenet">serveNet</a></li>
+</ol>
+</li>
+<li><a href="#ipc-stores-and-default-variables">IPC Stores and Default Variables</a></li>
+<li>
+<a href="#basic-examples">Basic Examples</a>
+
+<ol>
+<li><a href="#server-for-unix-sockets--tcp-sockets">Server for Unix Sockets &amp; TCP Sockets</a></li>
+<li><a href="#client-for-unix-sockets--tcp-sockets">Client for Unix Sockets &amp; TCP Sockets</a></li>
+<li><a href="#server--client-for-udp-sockets">Server &amp; Client for UDP Sockets</a></li>
+</ol>
+</li>
+<li><a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example">Advanced Examples</a></li>
+</ol><hr><h4>
 <a name="types-of-ipc-sockets" class="anchor" href="#types-of-ipc-sockets"><span class="octicon octicon-link"></span></a>Types of IPC Sockets</h4>
 
 <table>
@@ -115,6 +145,7 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
     silent          : false,
     maxConnections  : 100,
     retry           : 500,
+    maxRetries      : 0,
     stopRetrying    : false
 }
 </code></pre>
@@ -160,6 +191,10 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 <tr>
 <td>retry</td>
 <td>this is the time in milliseconds a client will wait before trying to reconnect to a server if the connection is lost. This does not effect UDP sockets since they do not have a client server relationship like Unix Sockets and TCP Sockets.</td>
+</tr>
+<tr>
+<td>maxRetries</td>
+<td>the maximum number of retries after each disconnect before giving up and completely killing a specific connection</td>
 </tr>
 <tr>
 <td>stopRetrying</td>
@@ -513,27 +548,26 @@ So while the default is : (id,host,port,callback), the following examples will s
 <hr><h3>
 <a name="ipc-stores-and-default-variables" class="anchor" href="#ipc-stores-and-default-variables"><span class="octicon octicon-link"></span></a>IPC Stores and Default Variables</h3>
 
-<p><code>ipc.of</code></p>
-
-<p>This is where socket connection refrences will be stored when connecting to them as a client via the <code>ipc.connectTo</code> or <code>iupc.connectToNet</code>.</p>
-
-<p><strong><em>example</em></strong></p>
-
-<pre><code>ipc.connectTo(
-    'world',
-    function(){
-
-        ipc.of.world.on(
-            'message',
-            function(data){...}
-        );
-
-    }
-);
-</code></pre>
-
-<hr><h3>
+<table>
+<thead><tr>
+<th>variable</th>
+<th>definition</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>ipc.of</td>
+<td>This is where socket connection refrences will be stored when connecting to them as a client via the <code>ipc.connectTo</code> or <code>iupc.connectToNet</code>. They will be stored based on the ID used to create them, eg : ipc.of.mySocket</td>
+</tr>
+<tr>
+<td>ipc.server</td>
+<td>This is a refrence to the server created by <code>ipc.serve</code> or <code>ipc.serveNet</code>
+</td>
+</tr>
+</tbody>
+</table><hr><h3>
 <a name="basic-examples" class="anchor" href="#basic-examples"><span class="octicon octicon-link"></span></a>Basic Examples</h3>
+
+<p>You can find <a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example">Advanced Examples</a> in the examples folder. In the examples you will find more complex demos including multi client examples.</p>
 
 <h4>
 <a name="server-for-unix-sockets--tcp-sockets" class="anchor" href="#server-for-unix-sockets--tcp-sockets"><span class="octicon octicon-link"></span></a>Server for Unix Sockets &amp; TCP Sockets</h4>

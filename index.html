@@ -145,7 +145,7 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
     silent          : false,
     maxConnections  : 100,
     retry           : 500,
-    maxRetries      : 0,
+    maxRetries      : false,
     stopRetrying    : false
 }
 </code></pre>
@@ -194,7 +194,7 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 </tr>
 <tr>
 <td>maxRetries</td>
-<td>the maximum number of retries after each disconnect before giving up and completely killing a specific connection</td>
+<td>if set, it represents the maximum number of retries after each disconnect before giving up and completely killing a specific connection</td>
 </tr>
 <tr>
 <td>stopRetrying</td>

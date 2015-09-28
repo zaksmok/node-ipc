@@ -85,8 +85,10 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 <li><a href="#server-for-unix-sockets--tcp-sockets">Server for Unix||Windows Sockets &amp; TCP Sockets</a></li>
 <li><a href="#client-for-unix-sockets--tcp-sockets">Client for Unix||Windows Sockets &amp; TCP Sockets</a></li>
 <li><a href="#server--client-for-udp-sockets">Server &amp; Client for UDP Sockets</a></li>
+<li><a href="#raw-buffer-or-binary-sockets">Raw Buffers or Binary Sockets</a></li>
 </ol>
 </li>
+<li><a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example/TLSSocket">Working with TLS/SSL Socket Servers &amp; Clients</a></li>
 <li><a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example">Advanced Examples</a></li>
 </ol>
 
@@ -118,8 +120,9 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 </tr>
 <tr>
 <td>TLS Socket</td>
-<td>Alpha</td>
-<td><strong><em>coming soon...</em></strong></td>
+<td>Stable</td>
+<td>Configureable and secure network socket over SSL. Equivalent to https. <a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example/TLSSocket">TLS/SSL documentation</a>
+</td>
 </tr>
 <tr>
 <td>UDP Sockets</td>
@@ -159,21 +162,22 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 
 <p>Set these variables in the <code>ipc.config</code> scope to overwrite or set default values.</p>
 
-<pre><code>{
-    appspace        : 'app.',
-    socketRoot      : '/tmp/',
-    id              : os.hostname(),
-    networkHost     : 'localhost', //should resolve to 127.0.0.1 or ::1 see the table below related to this
-    networkPort     : 8000,
-    encoding        : 'utf8',
-    rawBuffer       : false,
-    silent          : false,
-    maxConnections  : 100,
-    retry           : 500,
-    maxRetries      : false,
-    stopRetrying    : false
-}
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    {
+        appspace        <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>app.<span class="pl-pds">'</span></span>,
+        socketRoot      <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/tmp/<span class="pl-pds">'</span></span>,
+        id              <span class="pl-k">:</span> os.<span class="pl-c1">hostname</span>(),
+        networkHost     <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>localhost<span class="pl-pds">'</span></span>, <span class="pl-c">//should resolve to 127.0.0.1 or ::1 see the table below related to this</span>
+        networkPort     <span class="pl-k">:</span> <span class="pl-c1">8000</span>,
+        encoding        <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>,
+        rawBuffer       <span class="pl-k">:</span> <span class="pl-c1">false</span>,
+        silent          <span class="pl-k">:</span> <span class="pl-c1">false</span>,
+        maxConnections  <span class="pl-k">:</span> <span class="pl-c1">100</span>,
+        retry           <span class="pl-k">:</span> <span class="pl-c1">500</span>,
+        maxRetries      <span class="pl-k">:</span> <span class="pl-c1">false</span>,
+        stopRetrying    <span class="pl-k">:</span> <span class="pl-c1">false</span>
+    }
+</pre></div>
 
 <table>
 <thead>
@@ -252,29 +256,31 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 
 <p>The log also supports <a href="https://github.com/Marak/colors.js">colors</a> implementation. All of the available styles are supported and the theme styles are as follows :</p>
 
-<pre><code>{
-    good    : 'green',
-    notice  : 'yellow',
-    warn    : 'red',
-    error   : 'redBG',
-    debug   : 'magenta',
-    variable: 'cyan',
-    data    : 'blue'
-}    
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    {
+        good    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>green<span class="pl-pds">'</span></span>,
+        notice  <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>yellow<span class="pl-pds">'</span></span>,
+        warn    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>,
+        error   <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>redBG<span class="pl-pds">'</span></span>,
+        debug   <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>magenta<span class="pl-pds">'</span></span>,
+        variable<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>cyan<span class="pl-pds">'</span></span>,
+        data    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>
+    }    
+</pre></div>
 
 <p>You can override any of these settings by requireing colors and setting the theme as follows :</p>
 
-<pre><code>var colors=require('colors');
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> colors<span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>colors<span class="pl-pds">'</span></span>);
 
-colors.setTheme(
-    {
-        good    : 'zebra',
-        notice  : 'redBG',
-        ...
-    }    
-);
-</code></pre>
+    colors.setTheme(
+        {
+            good    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>zebra<span class="pl-pds">'</span></span>,
+            notice  <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>redBG<span class="pl-pds">'</span></span>,
+            ...
+        }    
+    );
+</pre></div>
 
 <hr>
 
@@ -315,43 +321,47 @@ colors.setTheme(
 
 <p><strong>examples</strong> arguments can be ommitted so long as they are still in order.</p>
 
-<pre><code>ipc.connectTo('world');
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.connectTo(<span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>);
+</pre></div>
 
 <p>or using just an id and a callback</p>
 
-<pre><code>ipc.connectTo(
-    'world',
-    function(){
-        ipc.of.world.on(
-            'hello',
-            function(data){
-                ipc.log(data.debug);
-                //if data was a string, it would have the color set to the debug style applied to it
-            }
-        )
-    }
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.connectTo(
+        <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){
+            ipc.of.world.on(
+                <span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>,
+                <span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+                    ipc.<span class="pl-c1">log</span>(data.debug);
+                    <span class="pl-c">//if data was a string, it would have the color set to the debug style applied to it</span>
+                }
+            )
+        }
+    );
+</pre></div>
 
 <p>or explicitly setting the path</p>
 
-<pre><code>ipc.connectTo(
-    'world',
-    'myapp.world'
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.connectTo(
+        <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>myapp.world<span class="pl-pds">'</span></span>
+    );
+</pre></div>
 
 <p>or explicitly setting the path with callback</p>
 
-<pre><code>ipc.connectTo(
-    'world',
-    'myapp.world',
-    function(){
-        ...
-    }
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.connectTo(
+        <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>myapp.world<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){
+            ...
+        }
+    );
+</pre></div>
 
 <hr>
 
@@ -360,7 +370,9 @@ colors.setTheme(
 
 <p><code>ipc.connectToNet(id,host,port,callback)</code>  </p>
 
-<p>Used to connect as a client to a TCP or TLS socket via the network card. This can be local or remote, if local, it is recommended that you use the Unix and Windows Socket Implementaion of <code>connectTo</code> instead as it is much faster since it avoids the network card altogether.</p>
+<p>Used to connect as a client to a TCP or <a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example/TLSSocket">TLS socket</a> via the network card. This can be local or remote, if local, it is recommended that you use the Unix and Windows Socket Implementaion of <code>connectTo</code> instead as it is much faster since it avoids the network card altogether.</p>
+
+<p>For TLS and SSL Sockets see the <a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example/TLSSocket">node-ipc TLS and SSL docs</a>. They have a few additional requirements, and things to know about and so have their own doc.</p>
 
 <table>
 <thead>
@@ -397,38 +409,42 @@ colors.setTheme(
 <p><strong>examples</strong> arguments can be ommitted so long as they are still in order.<br>
 So while the default is : (id,host,port,callback), the following examples will still work because they are still in order (id,port,callback) or (id,host,callback) or (id,port) etc.</p>
 
-<pre><code>ipc.connectToNet('world');
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.connectToNet(<span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>);
+</pre></div>
 
 <p>or using just an id and a callback</p>
 
-<pre><code>ipc.connectToNet(
-    'world',
-    function(){
-        ...
-    }
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.connectToNet(
+        <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){
+            ...
+        }
+    );
+</pre></div>
 
 <p>or explicitly setting the host and path</p>
 
-<pre><code>ipc.connectToNet(
-    'world',
-    'myapp.com',serve(path,callback)
-    3435
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.connectToNet(
+        <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>myapp.com<span class="pl-pds">'</span></span>,serve(path,callback)
+        <span class="pl-c1">3435</span>
+    );
+</pre></div>
 
 <p>or only explicitly setting port and callback</p>
 
-<pre><code>ipc.connectToNet(
-    'world',
-    3435,
-    function(){
-        ...
-    }
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.connectToNet(
+        <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
+        <span class="pl-c1">3435</span>,
+        <span class="pl-k">function</span>(){
+            ...
+        }
+    );
+</pre></div>
 
 <hr>
 
@@ -458,8 +474,9 @@ So while the default is : (id,host,port,callback), the following examples will s
 
 <p><strong>examples</strong></p>
 
-<pre><code>ipc.disconnect('world');
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.disconnect(<span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>);
+</pre></div>
 
 <hr>
 
@@ -496,30 +513,34 @@ So while the default is : (id,host,port,callback), the following examples will s
 
 <p><strong><em>examples</em></strong> arguments can be omitted so long as they are still in order.</p>
 
-<pre><code>ipc.serve();
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serve();
+</pre></div>
 
 <p>or specifying callback</p>
 
-<pre><code>ipc.serve(
-    function(){...}
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serve(
+        <span class="pl-k">function</span>(){...}
+    );
+</pre></div>
 
 <p>or specify path</p>
 
-<pre><code>ipc.serve(
-    '/tmp/myapp.myservice'
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serve(
+        <span class="pl-s"><span class="pl-pds">'</span>/tmp/myapp.myservice<span class="pl-pds">'</span></span>
+    );
+</pre></div>
 
 <p>or specifying everything</p>
 
-<pre><code>ipc.serve(
-    '/tmp/myapp.myservice',
-    function(){...}
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serve(
+        <span class="pl-s"><span class="pl-pds">'</span>/tmp/myapp.myservice<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){...}
+    );
+</pre></div>
 
 <hr>
 
@@ -566,54 +587,61 @@ So while the default is : (id,host,port,callback), the following examples will s
 
 <p>default tcp server</p>
 
-<pre><code>ipc.serveNet();
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serveNet();
+</pre></div>
 
 <p>default udp server</p>
 
-<pre><code>ipc.serveNet('udp4');
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serveNet(<span class="pl-s"><span class="pl-pds">'</span>udp4<span class="pl-pds">'</span></span>);
+</pre></div>
 
 <p>or specifying TCP server with callback</p>
 
-<pre><code>ipc.serveNet(
-    function(){...}
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serveNet(
+        <span class="pl-k">function</span>(){...}
+    );
+</pre></div>
 
 <p>or specifying UDP server with callback</p>
 
-<pre><code>ipc.serveNet(
-    'udp4',
-    function(){...}
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serveNet(
+        <span class="pl-s"><span class="pl-pds">'</span>udp4<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){...}
+    );
+</pre></div>
 
 <p>or specify port</p>
 
-<pre><code>ipc.serveNet(
-    3435
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serveNet(
+        <span class="pl-c1">3435</span>
+    );
+</pre></div>
 
 <p>or specifying everything TCP</p>
 
-<pre><code>ipc.serveNet(
-    'MyMostAwesomeApp.com',
-    3435,
-    function(){...}
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serveNet(
+        <span class="pl-s"><span class="pl-pds">'</span>MyMostAwesomeApp.com<span class="pl-pds">'</span></span>,
+        <span class="pl-c1">3435</span>,
+        <span class="pl-k">function</span>(){...}
+    );
+</pre></div>
 
 <p>or specifying everything UDP</p>
 
-<pre><code>ipc.serveNet(
-    'MyMostAwesomeApp.com',
-    3435,
-    'udp4',
-    function(){...}
-);
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.serveNet(
+        <span class="pl-s"><span class="pl-pds">'</span>MyMostAwesomeApp.com<span class="pl-pds">'</span></span>,
+        <span class="pl-c1">3435</span>,
+        <span class="pl-s"><span class="pl-pds">'</span>udp4<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){...}
+    );
+</pre></div>
 
 <hr>
 
@@ -652,68 +680,70 @@ So while the default is : (id,host,port,callback), the following examples will s
 
 <p>The server is the process keeping a socket for IPC open. Multiple sockets can connect to this server and talk to it. It can also broadcast to all clients or emit to a specific client. This is the most basic example which will work for local Unix and Windows Sockets as well as local or remote network TCP Sockets.</p>
 
-<pre><code>var ipc=require('node-ipc');
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> ipc<span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>node-ipc<span class="pl-pds">'</span></span>);
 
-ipc.config.id   = 'world';
-ipc.config.retry= 1500;
+    ipc.config.<span class="pl-c1">id</span>   <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>;
+    ipc.config.retry<span class="pl-k">=</span> <span class="pl-c1">1500</span>;
 
-ipc.serve(
-    function(){
-        ipc.server.on(
-            'message',
-            function(data,socket){
-                ipc.log('got a message : '.debug, data);
-                ipc.server.emit(
-                    socket,
-                    'message',
-                    data+' world!'
-                );
-            }
-        );
-    }
-);
+    ipc.serve(
+        <span class="pl-k">function</span>(){
+            ipc.server.on(
+                <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                <span class="pl-k">function</span>(<span class="pl-smi">data</span>,<span class="pl-smi">socket</span>){
+                    ipc.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>got a message : <span class="pl-pds">'</span></span>.debug, data);
+                    ipc.server.emit(
+                        socket,
+                        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                        data<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span> world!<span class="pl-pds">'</span></span>
+                    );
+                }
+            );
+        }
+    );
 
-ipc.server.start();
-</code></pre>
+    ipc.server.<span class="pl-c1">start</span>();
+</pre></div>
 
 <h4>
 <a id="client-for-unix-sockets--tcp-sockets" class="anchor" href="#client-for-unix-sockets--tcp-sockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Client for Unix Sockets &amp; TCP Sockets</h4>
 
 <p>The client connects to the servers socket for Inter Process Communication. The socket will receive events emitted to it specifically as well as events which are broadcast out on the socket by the server. This is the most basic example which will work for both local Unix Sockets and local or remote network TCP Sockets.</p>
 
-<pre><code>var ipc=require('node-ipc');
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> ipc<span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>node-ipc<span class="pl-pds">'</span></span>);
 
-ipc.config.id   = 'hello';
-ipc.config.retry= 1500;
+    ipc.config.<span class="pl-c1">id</span>   <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>;
+    ipc.config.retry<span class="pl-k">=</span> <span class="pl-c1">1500</span>;
 
-ipc.connectTo(
-    'world',
-    function(){
-        ipc.of.world.on(
-            'connect',
-            function(){
-                ipc.log('## connected to world ##'.rainbow, ipc.config.delay);
-                ipc.of.world.emit(
-                    'message',
-                    'hello'
-                )
-            }
-        );
-        ipc.of.world.on(
-            'disconnect',
-            function(){
-                ipc.log('disconnected from world'.notice);
-            }
-        );
-        ipc.of.world.on(
-            'message',
-            function(data){
-                ipc.log('got a message from world : '.debug, data);
-            }
-        );
-    }
-);
-</code></pre>
+    ipc.connectTo(
+        <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){
+            ipc.of.world.on(
+                <span class="pl-s"><span class="pl-pds">'</span>connect<span class="pl-pds">'</span></span>,
+                <span class="pl-k">function</span>(){
+                    ipc.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>## connected to world ##<span class="pl-pds">'</span></span>.rainbow, ipc.config.delay);
+                    ipc.of.world.emit(
+                        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                        <span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>
+                    )
+                }
+            );
+            ipc.of.world.on(
+                <span class="pl-s"><span class="pl-pds">'</span>disconnect<span class="pl-pds">'</span></span>,
+                <span class="pl-k">function</span>(){
+                    ipc.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>disconnected from world<span class="pl-pds">'</span></span>.notice);
+                }
+            );
+            ipc.of.world.on(
+                <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                <span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+                    ipc.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>got a message from world : <span class="pl-pds">'</span></span>.debug, data);
+                }
+            );
+        }
+    );
+</pre></div>
 
 <h4>
 <a id="server--client-for-udp-sockets" class="anchor" href="#server--client-for-udp-sockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Server &amp; Client for UDP Sockets</h4>
@@ -727,76 +757,78 @@ ipc.connectTo(
 <h5>
 <a id="udp-server-1---world" class="anchor" href="#udp-server-1---world" aria-hidden="true"><span class="octicon octicon-link"></span></a>UDP Server 1 - "World"</h5>
 
-<pre><code>var ipc=require('../../../node-ipc');
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> ipc<span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../../../node-ipc<span class="pl-pds">'</span></span>);
 
-ipc.config.id   = 'world';
-ipc.config.retry= 1500;
+    ipc.config.<span class="pl-c1">id</span>   <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>;
+    ipc.config.retry<span class="pl-k">=</span> <span class="pl-c1">1500</span>;
 
-ipc.serveNet(
-    'udp4',
-    function(){
-        console.log(123);
-        ipc.server.on(
-            'message',
-            function(data,socket){
-                ipc.log('got a message from '.debug, data.from.variable ,' : '.debug, data.message.variable);
-                ipc.server.emit(
-                    socket,
-                    'message',
-                    {
-                        from    : ipc.config.id,
-                        message : data.message+' world!'
-                    }
-                );
-            }
-        );
+    ipc.serveNet(
+        <span class="pl-s"><span class="pl-pds">'</span>udp4<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-c1">123</span>);
+            ipc.server.on(
+                <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                <span class="pl-k">function</span>(<span class="pl-smi">data</span>,<span class="pl-smi">socket</span>){
+                    ipc.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>got a message from <span class="pl-pds">'</span></span>.debug, data.from.variable ,<span class="pl-s"><span class="pl-pds">'</span> : <span class="pl-pds">'</span></span>.debug, data.message.variable);
+                    ipc.server.emit(
+                        socket,
+                        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                        {
+                            from    <span class="pl-k">:</span> ipc.config.<span class="pl-c1">id</span>,
+                            message <span class="pl-k">:</span> data.message<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span> world!<span class="pl-pds">'</span></span>
+                        }
+                    );
+                }
+            );
 
-        console.log(ipc.server);
-    }
-);
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(ipc.server);
+        }
+    );
 
-ipc.server.define.listen.message='This event type listens for message strings as value of data key.';
+    ipc.server.define.listen.message<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>This event type listens for message strings as value of data key.<span class="pl-pds">'</span></span>;
 
-ipc.server.start();
-</code></pre>
+    ipc.server.<span class="pl-c1">start</span>();
+</pre></div>
 
 <h5>
 <a id="udp-server-2---hello" class="anchor" href="#udp-server-2---hello" aria-hidden="true"><span class="octicon octicon-link"></span></a>UDP Server 2 - "Hello"</h5>
 
 <p><em>note</em> we set the port here to 8001 because the world server is already using the default ipc.config.networkPort of 8000. So we can not bind to 8000 while world is using it.</p>
 
-<pre><code>ipc.config.id   = 'hello';
-ipc.config.retry= 1500;
+<div class="highlight highlight-source-js"><pre>
+    ipc.config.<span class="pl-c1">id</span>   <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>;
+    ipc.config.retry<span class="pl-k">=</span> <span class="pl-c1">1500</span>;
 
-ipc.serveNet(
-    8001,
-    'udp4',
-    function(){
-        ipc.server.on(
-            'message',
-            function(data){
-                ipc.log('got Data');
-                ipc.log('got a message from '.debug, data.from.variable ,' : '.debug, data.message.variable);
-            }
-        );
-        ipc.server.emit(
-            {
-                address : '127.0.0.1', //any hostname will work
-                port    : ipc.config.networkPort
-            },
-            'message',
-            {
-                from    : ipc.config.id,
-                message : 'Hello'
-            }
-        );
-    }
-);
+    ipc.serveNet(
+        <span class="pl-c1">8001</span>,
+        <span class="pl-s"><span class="pl-pds">'</span>udp4<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(){
+            ipc.server.on(
+                <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                <span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+                    ipc.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>got Data<span class="pl-pds">'</span></span>);
+                    ipc.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>got a message from <span class="pl-pds">'</span></span>.debug, data.from.variable ,<span class="pl-s"><span class="pl-pds">'</span> : <span class="pl-pds">'</span></span>.debug, data.message.variable);
+                }
+            );
+            ipc.server.emit(
+                {
+                    address <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>127.0.0.1<span class="pl-pds">'</span></span>, <span class="pl-c">//any hostname will work</span>
+                    port    <span class="pl-k">:</span> ipc.config.networkPort
+                },
+                <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                {
+                    from    <span class="pl-k">:</span> ipc.config.<span class="pl-c1">id</span>,
+                    message <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Hello<span class="pl-pds">'</span></span>
+                }
+            );
+        }
+    );
 
-ipc.server.define.listen.message='This event type listens for message strings as value of data key.';
+    ipc.server.define.listen.message<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>This event type listens for message strings as value of data key.<span class="pl-pds">'</span></span>;
 
-ipc.server.start();
-</code></pre>
+    ipc.server.<span class="pl-c1">start</span>();
+</pre></div>
 
 <h4>
 <a id="raw-buffer-or-binary-sockets" class="anchor" href="#raw-buffer-or-binary-sockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Raw Buffer or Binary Sockets</h4>
@@ -805,55 +837,65 @@ ipc.server.start();
 
 <p>When setting up a rawBuffer socket you must specify it as such :</p>
 
-<pre><code>ipc.config.rawBuffer=true;
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.config.rawBuffer<span class="pl-k">=</span><span class="pl-c1">true</span>;
+</pre></div>
 
 <p>You can also specify its encoding type. The default is <code>utf8</code></p>
 
-<pre><code>ipc.config.encoding='utf8';
-</code></pre>
+<div class="highlight highlight-source-js"><pre>
+    ipc.config.<span class="pl-c1">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>;
+</pre></div>
 
 <p>emit string buffer :</p>
 
-<pre><code>//server
-ipc.server.emit(
-    socket,
-    'hello'
-);
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-c">//server</span>
+    ipc.server.emit(
+        socket,
+        <span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>
+    );
 
-//client
-ipc.of.world.emit(
-    'hello'
-)
-</code></pre>
+    <span class="pl-c">//client</span>
+    ipc.of.world.emit(
+        <span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>
+    )
+</pre></div>
 
 <p>emit byte array buffer :</p>
 
-<pre><code>//server
-ipc.server.emit(
-    socket,
-    [10,20,30]
-);
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-c">//server</span>
+    ipc.server.emit(
+        socket,
+        [<span class="pl-c1">10</span>,<span class="pl-c1">20</span>,<span class="pl-c1">30</span>]
+    );
 
-//client
-ipc.server.emit(
-    [10,20,30]
-);
-</code></pre>
+    <span class="pl-c">//client</span>
+    ipc.server.emit(
+        [<span class="pl-c1">10</span>,<span class="pl-c1">20</span>,<span class="pl-c1">30</span>]
+    );
+</pre></div>
 
 <p>emit hex array buffer :</p>
 
-<pre><code>//server
-ipc.server.emit(
-    socket,
-    [0x05,0x6d,0x5c]
-);
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-c">//server</span>
+    ipc.server.emit(
+        socket,
+        [<span class="pl-c1">0x05</span>,<span class="pl-c1">0x6d</span>,<span class="pl-c1">0x5c</span>]
+    );
 
-//client
-ipc.server.emit(
-    [0x05,0x6d,0x5c]
-);
-</code></pre>
+    <span class="pl-c">//client</span>
+    ipc.server.emit(
+        [<span class="pl-c1">0x05</span>,<span class="pl-c1">0x6d</span>,<span class="pl-c1">0x5c</span>]
+    );
+</pre></div>
+
+<h4>
+<a id="licensed-under-dbad-license" class="anchor" href="#licensed-under-dbad-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Licensed under DBAD license</h4>
+
+<p>See the <a href="https://github.com/philsturgeon/dbad">DBAD license</a> in your language or our <a href="https://github.com/RIAEvangelist/node-phidget-API/blob/master/license.md">licence.md</a> file.</p>
       </section>
     </div>
 

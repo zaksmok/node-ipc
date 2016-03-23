@@ -32,20 +32,29 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a id="node-ipc" class="anchor" href="#node-ipc" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-ipc</h1>
+<a id="node-ipc" class="anchor" href="#node-ipc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>node-ipc</h1>
 
-<p><em>a nodejs module for local and remote Inter Process Communication</em> with full support for Linux, Mac and Windows.<br>
-A great solution for <strong>Neural Networking</strong> in Node.JS</p>
+<p><em>a nodejs module for local and remote Inter Process Communication</em> with full support for Linux, Mac and Windows. It also supports all forms of socket communication from low level unix and windows sockets to UDP and secure TLS and TCP sockets.</p>
+
+<p>A great solution for complex multiprocess <strong>Neural Networking</strong> in Node.JS</p>
 
 <p><strong>npm install node-ipc</strong></p>
 
+<h4>
+<a id="npm-stats" class="anchor" href="#npm-stats" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NPM Stats</h4>
+
 <p>npm info :  <a href="http://npm-stat.com/charts.html?package=node-ipc&amp;author=&amp;from=&amp;to=">See npm trends and stats for node-ipc</a><br>
+<a href="https://nodei.co/npm/node-ipc/"><img src="https://nodei.co/npm/node-ipc.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM"></a>
+<a href="http://packagequality.com/#?package=node-ipc"><img src="http://npm.packagequality.com/badge/node-ipc.png" alt="Package Quality"></a><br>
 <img src="https://img.shields.io/npm/v/node-ipc.svg" alt="node-ipc npm version"> <img src="https://img.shields.io/node/v/node-ipc.svg" alt="supported node version for node-ipc"> <img src="https://img.shields.io/npm/dt/node-ipc.svg" alt="total npm downloads for node-ipc"> <img src="https://img.shields.io/npm/dm/node-ipc.svg" alt="monthly npm downloads for node-ipc"> <img src="https://img.shields.io/npm/l/node-ipc.svg" alt="npm licence for node-ipc"></p>
 
 <p><a href="https://github.com/RIAEvangelist"><img src="https://avatars3.githubusercontent.com/u/369041?v=3&amp;s=100" alt="RIAEvangelist"></a></p>
 
 <p>GitHub info :<br>
 <img src="https://img.shields.io/github/release/RIAEvangelist/node-ipc.svg" alt="node-ipc GitHub Release"> <img src="https://img.shields.io/github/license/RIAEvangelist/node-ipc.svg" alt="GitHub license node-ipc license"> <img src="https://img.shields.io/github/issues/RIAEvangelist/node-ipc.svg" alt="open issues for node-ipc on GitHub"></p>
+
+<p>Codacy info :<br>
+<a href="https://www.codacy.com/app/RIAEvangelist/node-ipc"><img src="https://api.codacy.com/project/badge/grade/8e0294dff55f4ac1985c07b16f39d0a9" alt="Codacy Badge"></a> <a href="https://www.codacy.com/app/RIAEvangelist/node-ipc"><img src="https://api.codacy.com/project/badge/coverage/8e0294dff55f4ac1985c07b16f39d0a9" alt="Codacy Badge"></a></p>
 
 <p>Package details websites :</p>
 
@@ -58,13 +67,21 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 
 <p>This work is licenced via the <a href="http://www.dbad-license.org/">DBAD Public Licence</a>.</p>
 
+<h4>
+<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h4>
+
+<p><code>npm test</code> will run the jasmine tests with istanbul for node-ipc and generate a coverage report in the spec folder.</p>
+
+<p>You may want to install jasmine and istanbul globally with <code>sudo npm install -g jasmine istanbul</code></p>
+
 <hr>
 
 <h4>
-<a id="contents" class="anchor" href="#contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contents</h4>
+<a id="contents" class="anchor" href="#contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents</h4>
 
 <ol>
 <li><a href="#types-of-ipc-sockets">Types of IPC Sockets and Supporting OS</a></li>
+<li><a href="#ipc-config">IPC Config</a></li>
 <li>
 <a href="#ipc-methods">IPC Methods</a>
 
@@ -78,6 +95,8 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 </ol>
 </li>
 <li><a href="#ipc-stores-and-default-variables">IPC Stores and Default Variables</a></li>
+<li><a href="#ipc-events">IPC Events</a></li>
+<li><a href="#multiple-ipc-instances">Multiple IPC instances</a></li>
 <li>
 <a href="#basic-examples">Basic Examples</a>
 
@@ -85,17 +104,17 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 <li><a href="#server-for-unix-sockets--tcp-sockets">Server for Unix||Windows Sockets &amp; TCP Sockets</a></li>
 <li><a href="#client-for-unix-sockets--tcp-sockets">Client for Unix||Windows Sockets &amp; TCP Sockets</a></li>
 <li><a href="#server--client-for-udp-sockets">Server &amp; Client for UDP Sockets</a></li>
-<li><a href="#raw-buffer-or-binary-sockets">Raw Buffers or Binary Sockets</a></li>
+<li><a href="#raw-buffer-or-binary-sockets">Raw Buffers, Real Time and / or Binary Sockets</a></li>
 </ol>
 </li>
 <li><a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example/TLSSocket">Working with TLS/SSL Socket Servers &amp; Clients</a></li>
-<li><a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example">Advanced Examples</a></li>
+<li><a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example">Node Code Examples</a></li>
 </ol>
 
 <hr>
 
 <h4>
-<a id="types-of-ipc-sockets" class="anchor" href="#types-of-ipc-sockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Types of IPC Sockets</h4>
+<a id="types-of-ipc-sockets" class="anchor" href="#types-of-ipc-sockets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Types of IPC Sockets</h4>
 
 <table>
 <thead>
@@ -158,6 +177,9 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 
 <hr>
 
+<h4>
+<a id="ipc-config" class="anchor" href="#ipc-config" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IPC Config</h4>
+
 <p><code>ipc.config</code>  </p>
 
 <p>Set these variables in the <code>ipc.config</code> scope to overwrite or set default values.</p>
@@ -171,7 +193,10 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
         networkPort     <span class="pl-k">:</span> <span class="pl-c1">8000</span>,
         encoding        <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>,
         rawBuffer       <span class="pl-k">:</span> <span class="pl-c1">false</span>,
+        sync            <span class="pl-k">:</span> <span class="pl-c1">false</span>,
         silent          <span class="pl-k">:</span> <span class="pl-c1">false</span>,
+        logInColor      <span class="pl-k">:</span> <span class="pl-c1">true</span>,
+        logDepth        <span class="pl-k">:</span> <span class="pl-c1">5</span>,
         maxConnections  <span class="pl-k">:</span> <span class="pl-c1">100</span>,
         retry           <span class="pl-k">:</span> <span class="pl-c1">500</span>,
         maxRetries      <span class="pl-k">:</span> <span class="pl-c1">false</span>,
@@ -216,8 +241,20 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 <td>if true, data will be sent and received as a raw node <code>Buffer</code> <strong>NOT</strong> an <code>Object</code> as JSON. This is great for Binary or hex IPC, and communicating with other processes in languages like C and C++</td>
 </tr>
 <tr>
+<td>sync</td>
+<td>synchronous requests. Clients will not send new requests until the server answers.</td>
+</tr>
+<tr>
 <td>silent</td>
 <td>turn on/off logging default is false which means logging is on</td>
+</tr>
+<tr>
+<td>logInColor</td>
+<td>turn on/off util.inspect colors for ipc.log</td>
+</tr>
+<tr>
+<td>logDepth</td>
+<td>set the depth for util.inspect during ipc.log</td>
 </tr>
 <tr>
 <td>maxConnections</td>
@@ -241,55 +278,34 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 <hr>
 
 <h4>
-<a id="ipc-methods" class="anchor" href="#ipc-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>IPC Methods</h4>
+<a id="ipc-methods" class="anchor" href="#ipc-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IPC Methods</h4>
 
 <p>These methods are available in the IPC Scope.  </p>
 
 <hr>
 
 <h5>
-<a id="log" class="anchor" href="#log" aria-hidden="true"><span class="octicon octicon-link"></span></a>log</h5>
+<a id="log" class="anchor" href="#log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>log</h5>
 
 <p><code>ipc.log(a,b,c,d,e...);</code>  </p>
 
-<p>ipc.log will accept any number of arguments and if <code>ipc.config.silent</code> is not set, it will concat them all with a sincle space ' ' between them and then log them to the console. This is fast because it prevents any concatenation from happening if the ipc is set to silent. That way if you leave your logging in place it should not effect performance.</p>
+<p>ipc.log will accept any number of arguments and if <code>ipc.config.silent</code> is not set, it will concat them all with a single space ' ' between them and then log them to the console. This is fast because it prevents any concatenation from happening if the ipc.config.silent is set <code>true</code>. That way if you leave your logging in place it should have almost no effect on performance.</p>
 
-<p>The log also supports <a href="https://github.com/Marak/colors.js">colors</a> implementation. All of the available styles are supported and the theme styles are as follows :</p>
-
-<div class="highlight highlight-source-js"><pre>
-    {
-        good    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>green<span class="pl-pds">'</span></span>,
-        notice  <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>yellow<span class="pl-pds">'</span></span>,
-        warn    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>,
-        error   <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>redBG<span class="pl-pds">'</span></span>,
-        debug   <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>magenta<span class="pl-pds">'</span></span>,
-        variable<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>cyan<span class="pl-pds">'</span></span>,
-        data    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>
-    }    
-</pre></div>
-
-<p>You can override any of these settings by requireing colors and setting the theme as follows :</p>
+<p>The log also uses util.inspect You can control if it should log in color as well as the log depth via <code>ipc.config</code></p>
 
 <div class="highlight highlight-source-js"><pre>
-    <span class="pl-k">var</span> colors<span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>colors<span class="pl-pds">'</span></span>);
-
-    <span class="pl-smi">colors</span>.<span class="pl-en">setTheme</span>(
-        {
-            good    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>zebra<span class="pl-pds">'</span></span>,
-            notice  <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>redBG<span class="pl-pds">'</span></span>,
-            ...
-        }    
-    );
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">config</span>.<span class="pl-smi">logInColor</span><span class="pl-k">=</span><span class="pl-c1">true</span>; <span class="pl-c">//default</span>
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">config</span>.<span class="pl-smi">logDepth</span><span class="pl-k">=</span><span class="pl-c1">5</span>; <span class="pl-c">//default    </span>
 </pre></div>
 
 <hr>
 
 <h5>
-<a id="connectto" class="anchor" href="#connectto" aria-hidden="true"><span class="octicon octicon-link"></span></a>connectTo</h5>
+<a id="connectto" class="anchor" href="#connectto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>connectTo</h5>
 
 <p><code>ipc.connectTo(id,path,callback);</code>  </p>
 
-<p>Used for connecting as a client to local Unix Sockets and Windows Sockets. <strong><em>This is the fastst way for processes on the same machine to communicate</em></strong> because it bypasses the network card which TCP and UDP must both use.</p>
+<p>Used for connecting as a client to local Unix Sockets and Windows Sockets. <strong><em>This is the fastest way for processes on the same machine to communicate</em></strong> because it bypasses the network card which TCP and UDP must both use.</p>
 
 <table>
 <thead>
@@ -358,7 +374,7 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
         <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
         <span class="pl-s"><span class="pl-pds">'</span>myapp.world<span class="pl-pds">'</span></span>,
         <span class="pl-k">function</span>(){
-            ...
+            <span class="pl-k">...</span>
         }
     );
 </pre></div>
@@ -366,7 +382,7 @@ A great solution for <strong>Neural Networking</strong> in Node.JS</p>
 <hr>
 
 <h5>
-<a id="connecttonet" class="anchor" href="#connecttonet" aria-hidden="true"><span class="octicon octicon-link"></span></a>connectToNet</h5>
+<a id="connecttonet" class="anchor" href="#connecttonet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>connectToNet</h5>
 
 <p><code>ipc.connectToNet(id,host,port,callback)</code>  </p>
 
@@ -419,7 +435,7 @@ So while the default is : (id,host,port,callback), the following examples will s
     <span class="pl-smi">ipc</span>.<span class="pl-en">connectToNet</span>(
         <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
         <span class="pl-k">function</span>(){
-            ...
+            <span class="pl-k">...</span>
         }
     );
 </pre></div>
@@ -441,7 +457,7 @@ So while the default is : (id,host,port,callback), the following examples will s
         <span class="pl-s"><span class="pl-pds">'</span>world<span class="pl-pds">'</span></span>,
         <span class="pl-c1">3435</span>,
         <span class="pl-k">function</span>(){
-            ...
+            <span class="pl-k">...</span>
         }
     );
 </pre></div>
@@ -449,7 +465,7 @@ So while the default is : (id,host,port,callback), the following examples will s
 <hr>
 
 <h5>
-<a id="disconnect" class="anchor" href="#disconnect" aria-hidden="true"><span class="octicon octicon-link"></span></a>disconnect</h5>
+<a id="disconnect" class="anchor" href="#disconnect" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>disconnect</h5>
 
 <p><code>ipc.disconnect(id)</code>  </p>
 
@@ -481,7 +497,7 @@ So while the default is : (id,host,port,callback), the following examples will s
 <hr>
 
 <h5>
-<a id="serve" class="anchor" href="#serve" aria-hidden="true"><span class="octicon octicon-link"></span></a>serve</h5>
+<a id="serve" class="anchor" href="#serve" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>serve</h5>
 
 <p><code>ipc.serve(path,callback);</code>  </p>
 
@@ -521,7 +537,7 @@ So while the default is : (id,host,port,callback), the following examples will s
 
 <div class="highlight highlight-source-js"><pre>
     <span class="pl-smi">ipc</span>.<span class="pl-en">serve</span>(
-        <span class="pl-k">function</span>(){...}
+        <span class="pl-k">function</span>(){<span class="pl-k">...</span>}
     );
 </pre></div>
 
@@ -538,14 +554,14 @@ So while the default is : (id,host,port,callback), the following examples will s
 <div class="highlight highlight-source-js"><pre>
     <span class="pl-smi">ipc</span>.<span class="pl-en">serve</span>(
         <span class="pl-s"><span class="pl-pds">'</span>/tmp/myapp.myservice<span class="pl-pds">'</span></span>,
-        <span class="pl-k">function</span>(){...}
+        <span class="pl-k">function</span>(){<span class="pl-k">...</span>}
     );
 </pre></div>
 
 <hr>
 
 <h5>
-<a id="servenet" class="anchor" href="#servenet" aria-hidden="true"><span class="octicon octicon-link"></span></a>serveNet</h5>
+<a id="servenet" class="anchor" href="#servenet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>serveNet</h5>
 
 <p><code>serveNet(host,port,UDPType,callback)</code></p>
 
@@ -568,12 +584,13 @@ So while the default is : (id,host,port,callback), the following examples will s
 <tr>
 <td>port</td>
 <td>optional</td>
-<td>The port on wunich the TCP, UDP, or TLS Socket server will be bound, this defaults to 8000 if not specified</td>
+<td>The port on which the TCP, UDP, or TLS Socket server will be bound, this defaults to 8000 if not specified</td>
 </tr>
 <tr>
 <td>UDPType</td>
 <td>optional</td>
-<td>If set this will create the server as a UDP socket. 'udp4' or 'udp6' are valid values. This defaults to not being set.</td>
+<td>If set this will create the server as a UDP socket. 'udp4' or 'udp6' are valid values. This defaults to not being set. When using udp6 make sure to specify a valid IPv6 host, like <code>::1</code>
+</td>
 </tr>
 <tr>
 <td>callback</td>
@@ -601,7 +618,7 @@ So while the default is : (id,host,port,callback), the following examples will s
 
 <div class="highlight highlight-source-js"><pre>
     <span class="pl-smi">ipc</span>.<span class="pl-en">serveNet</span>(
-        <span class="pl-k">function</span>(){...}
+        <span class="pl-k">function</span>(){<span class="pl-k">...</span>}
     );
 </pre></div>
 
@@ -610,7 +627,7 @@ So while the default is : (id,host,port,callback), the following examples will s
 <div class="highlight highlight-source-js"><pre>
     <span class="pl-smi">ipc</span>.<span class="pl-en">serveNet</span>(
         <span class="pl-s"><span class="pl-pds">'</span>udp4<span class="pl-pds">'</span></span>,
-        <span class="pl-k">function</span>(){...}
+        <span class="pl-k">function</span>(){<span class="pl-k">...</span>}
     );
 </pre></div>
 
@@ -628,7 +645,7 @@ So while the default is : (id,host,port,callback), the following examples will s
     <span class="pl-smi">ipc</span>.<span class="pl-en">serveNet</span>(
         <span class="pl-s"><span class="pl-pds">'</span>MyMostAwesomeApp.com<span class="pl-pds">'</span></span>,
         <span class="pl-c1">3435</span>,
-        <span class="pl-k">function</span>(){...}
+        <span class="pl-k">function</span>(){<span class="pl-k">...</span>}
     );
 </pre></div>
 
@@ -639,14 +656,14 @@ So while the default is : (id,host,port,callback), the following examples will s
         <span class="pl-s"><span class="pl-pds">'</span>MyMostAwesomeApp.com<span class="pl-pds">'</span></span>,
         <span class="pl-c1">3435</span>,
         <span class="pl-s"><span class="pl-pds">'</span>udp4<span class="pl-pds">'</span></span>,
-        <span class="pl-k">function</span>(){...}
+        <span class="pl-k">function</span>(){<span class="pl-k">...</span>}
     );
 </pre></div>
 
 <hr>
 
 <h3>
-<a id="ipc-stores-and-default-variables" class="anchor" href="#ipc-stores-and-default-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>IPC Stores and Default Variables</h3>
+<a id="ipc-stores-and-default-variables" class="anchor" href="#ipc-stores-and-default-variables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IPC Stores and Default Variables</h3>
 
 <table>
 <thead>
@@ -671,12 +688,119 @@ So while the default is : (id,host,port,callback), the following examples will s
 <hr>
 
 <h3>
-<a id="basic-examples" class="anchor" href="#basic-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic Examples</h3>
+<a id="ipc-server-methods" class="anchor" href="#ipc-server-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IPC Server Methods</h3>
+
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th>definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>start serving need top call <code>serve</code> or <code>serveNet</code> first to set up the server</td>
+</tr>
+<tr>
+<td>stop</td>
+<td>close the server and stop serving</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3>
+<a id="ipc-events" class="anchor" href="#ipc-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IPC Events</h3>
+
+<table>
+<thead>
+<tr>
+<th>event name</th>
+<th>params</th>
+<th>definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error</td>
+<td>err obj</td>
+<td>triggered when an error has occured</td>
+</tr>
+<tr>
+<td>connect</td>
+<td></td>
+<td>triggered when socket connected</td>
+</tr>
+<tr>
+<td>disconnect</td>
+<td></td>
+<td>triggered when socket disconnected</td>
+</tr>
+<tr>
+<td>destroy</td>
+<td></td>
+<td>triggered when socket has been totally destroyed, no further auto retries will happen and all references are gone.</td>
+</tr>
+<tr>
+<td>data</td>
+<td>buffer</td>
+<td>triggered when ipc.config.rawBuffer is true and a message is received.</td>
+</tr>
+<tr>
+<td><strong><em>your event type</em></strong></td>
+<td><strong><em>your event data</em></strong></td>
+<td>triggered when a JSON message is received. The event name will be the type string from your message and the param will be the data object from your message eg : <code>{ type:'myEvent',data:{a:1}}</code>
+</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="multiple-ipc-instances" class="anchor" href="#multiple-ipc-instances" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple IPC Instances</h3>
+
+<p>Sometimes you might need explicit and independent instances of node-ipc. Just for such scenarios we have exposed the core IPC class on the IPC singleton.</p>
+
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">const</span> <span class="pl-c1">RawIPC</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>node-ipc<span class="pl-pds">'</span></span>).<span class="pl-c1">IPC</span>;
+    <span class="pl-k">const</span> <span class="pl-c1">ipc</span><span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">RawIPC</span>;
+    <span class="pl-k">const</span> <span class="pl-c1">someOtherExplicitIPC</span><span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">RawIPC</span>;
+
+
+    <span class="pl-c">//OR</span>
+
+    <span class="pl-k">const</span> <span class="pl-c1">ipc</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>node-ipc<span class="pl-pds">'</span></span>);
+    <span class="pl-k">const</span> <span class="pl-c1">someOtherExplicitIPC</span><span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">ipc.IPC</span>;
+
+
+    <span class="pl-c">//setting explicit configs</span>
+
+    <span class="pl-c">//keep one silent and the other verbose</span>
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">config</span>.<span class="pl-smi">silent</span><span class="pl-k">=</span><span class="pl-c1">true</span>;
+    <span class="pl-smi">someOtherExplicitIPC</span>.<span class="pl-smi">config</span>.<span class="pl-smi">silent</span><span class="pl-k">=</span><span class="pl-c1">true</span>;
+
+    <span class="pl-c">//make one a raw binary and the other json based ipc</span>
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">config</span>.<span class="pl-smi">rawBuffer</span><span class="pl-k">=</span><span class="pl-c1">false</span>;
+
+    <span class="pl-smi">someOtherExplicitIPC</span>.<span class="pl-smi">config</span>.<span class="pl-smi">rawBuffer</span><span class="pl-k">=</span><span class="pl-c1">true</span>;
+    <span class="pl-smi">someOtherExplicitIPC</span>.<span class="pl-smi">config</span>.<span class="pl-c1">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>;
+</pre></div>
+
+<hr>
+
+<h3>
+<a id="basic-examples" class="anchor" href="#basic-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic Examples</h3>
 
 <p>You can find <a href="https://github.com/RIAEvangelist/node-ipc/tree/master/example">Advanced Examples</a> in the examples folder. In the examples you will find more complex demos including multi client examples.</p>
 
 <h4>
-<a id="server-for-unix-sockets-windows-sockets--tcp-sockets" class="anchor" href="#server-for-unix-sockets-windows-sockets--tcp-sockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Server for Unix Sockets, Windows Sockets &amp; TCP Sockets</h4>
+<a id="server-for-unix-sockets-windows-sockets--tcp-sockets" class="anchor" href="#server-for-unix-sockets-windows-sockets--tcp-sockets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server for Unix Sockets, Windows Sockets &amp; TCP Sockets</h4>
 
 <p>The server is the process keeping a socket for IPC open. Multiple sockets can connect to this server and talk to it. It can also broadcast to all clients or emit to a specific client. This is the most basic example which will work for local Unix and Windows Sockets as well as local or remote network TCP Sockets.</p>
 
@@ -694,7 +818,8 @@ So while the default is : (id,host,port,callback), the following examples will s
                     <span class="pl-smi">ipc</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>got a message : <span class="pl-pds">'</span></span>.<span class="pl-smi">debug</span>, data);
                     <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-en">emit</span>(
                         socket,
-                        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,  <span class="pl-c">//this can be anything you want so long as</span>
+                                    <span class="pl-c">//your client knows.</span>
                         data<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span> world!<span class="pl-pds">'</span></span>
                     );
                 }
@@ -706,7 +831,7 @@ So while the default is : (id,host,port,callback), the following examples will s
 </pre></div>
 
 <h4>
-<a id="client-for-unix-sockets--tcp-sockets" class="anchor" href="#client-for-unix-sockets--tcp-sockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Client for Unix Sockets &amp; TCP Sockets</h4>
+<a id="client-for-unix-sockets--tcp-sockets" class="anchor" href="#client-for-unix-sockets--tcp-sockets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Client for Unix Sockets &amp; TCP Sockets</h4>
 
 <p>The client connects to the servers socket for Inter Process Communication. The socket will receive events emitted to it specifically as well as events which are broadcast out on the socket by the server. This is the most basic example which will work for both local Unix Sockets and local or remote network TCP Sockets.</p>
 
@@ -724,7 +849,7 @@ So while the default is : (id,host,port,callback), the following examples will s
                 <span class="pl-k">function</span>(){
                     <span class="pl-smi">ipc</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>## connected to world ##<span class="pl-pds">'</span></span>.<span class="pl-smi">rainbow</span>, <span class="pl-smi">ipc</span>.<span class="pl-smi">config</span>.<span class="pl-smi">delay</span>);
                     <span class="pl-smi">ipc</span>.<span class="pl-smi">of</span>.<span class="pl-smi">world</span>.<span class="pl-en">emit</span>(
-                        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,  <span class="pl-c">//any event or message type your server listens for</span>
                         <span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>
                     )
                 }
@@ -736,7 +861,7 @@ So while the default is : (id,host,port,callback), the following examples will s
                 }
             );
             <span class="pl-smi">ipc</span>.<span class="pl-smi">of</span>.<span class="pl-smi">world</span>.<span class="pl-en">on</span>(
-                <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,  <span class="pl-c">//any event or message type your server listens for</span>
                 <span class="pl-k">function</span>(<span class="pl-smi">data</span>){
                     <span class="pl-smi">ipc</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>got a message from world : <span class="pl-pds">'</span></span>.<span class="pl-smi">debug</span>, data);
                 }
@@ -746,7 +871,7 @@ So while the default is : (id,host,port,callback), the following examples will s
 </pre></div>
 
 <h4>
-<a id="server--client-for-udp-sockets" class="anchor" href="#server--client-for-udp-sockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Server &amp; Client for UDP Sockets</h4>
+<a id="server--client-for-udp-sockets" class="anchor" href="#server--client-for-udp-sockets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server &amp; Client for UDP Sockets</h4>
 
 <p>UDP Sockets are different than Unix, Windows &amp; TCP Sockets because they must be bound to a unique port on their machine to receive messages. For example, A TCP, Unix, or Windows Socket client could just connect to a separate TCP, Unix, or Windows Socket sever. That client could then exchange, both send and receive, data on the servers port or location. UDP Sockets can not do this. They must bind to a port to receive or send data.  </p>
 
@@ -755,7 +880,7 @@ So while the default is : (id,host,port,callback), the following examples will s
 <p>This is the most basic example which will work for both local and remote UDP Sockets.</p>
 
 <h5>
-<a id="udp-server-1---world" class="anchor" href="#udp-server-1---world" aria-hidden="true"><span class="octicon octicon-link"></span></a>UDP Server 1 - "World"</h5>
+<a id="udp-server-1---world" class="anchor" href="#udp-server-1---world" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UDP Server 1 - "World"</h5>
 
 <div class="highlight highlight-source-js"><pre>
     <span class="pl-k">var</span> ipc<span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../../../node-ipc<span class="pl-pds">'</span></span>);
@@ -786,13 +911,11 @@ So while the default is : (id,host,port,callback), the following examples will s
         }
     );
 
-    <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-smi">define</span>.<span class="pl-smi">listen</span>.<span class="pl-smi">message</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>This event type listens for message strings as value of data key.<span class="pl-pds">'</span></span>;
-
     <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-c1">start</span>();
 </pre></div>
 
 <h5>
-<a id="udp-server-2---hello" class="anchor" href="#udp-server-2---hello" aria-hidden="true"><span class="octicon octicon-link"></span></a>UDP Server 2 - "Hello"</h5>
+<a id="udp-server-2---hello" class="anchor" href="#udp-server-2---hello" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UDP Server 2 - "Hello"</h5>
 
 <p><em>note</em> we set the port here to 8001 because the world server is already using the default ipc.config.networkPort of 8000. So we can not bind to 8000 while world is using it.</p>
 
@@ -825,15 +948,13 @@ So while the default is : (id,host,port,callback), the following examples will s
         }
     );
 
-    <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-smi">define</span>.<span class="pl-smi">listen</span>.<span class="pl-smi">message</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>This event type listens for message strings as value of data key.<span class="pl-pds">'</span></span>;
-
     <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-c1">start</span>();
 </pre></div>
 
 <h4>
-<a id="raw-buffer-or-binary-sockets" class="anchor" href="#raw-buffer-or-binary-sockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Raw Buffer or Binary Sockets</h4>
+<a id="raw-buffer-or-binary-sockets" class="anchor" href="#raw-buffer-or-binary-sockets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Raw Buffer or Binary Sockets</h4>
 
-<p>Binary or Buffer sockets can be used with any of the above socket types, however the way data events are emit is <strong><em>slightly</em></strong> different.</p>
+<p>Binary or Buffer sockets can be used with any of the above socket types, however the way data events are emit is <strong><em>slightly</em></strong> different. These may come in handy if working with embedded systems or C / C++ processes. You can even make sure to match C or C++ string typing.</p>
 
 <p>When setting up a rawBuffer socket you must specify it as such :</p>
 
@@ -865,6 +986,9 @@ So while the default is : (id,host,port,callback), the following examples will s
 <p>emit byte array buffer :</p>
 
 <div class="highlight highlight-source-js"><pre>
+    <span class="pl-c">//hex encoding may work best for this.</span>
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">config</span>.<span class="pl-c1">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>;
+
     <span class="pl-c">//server</span>
     <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-en">emit</span>(
         socket,
@@ -877,9 +1001,11 @@ So while the default is : (id,host,port,callback), the following examples will s
     );
 </pre></div>
 
-<p>emit hex array buffer :</p>
+<p>emit binary or hex array buffer, this is best for real time data transfer, especially whan connecting to C or C++ processes, or embedded systems :</p>
 
 <div class="highlight highlight-source-js"><pre>
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">config</span>.<span class="pl-c1">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>;
+
     <span class="pl-c">//server</span>
     <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-en">emit</span>(
         socket,
@@ -889,11 +1015,53 @@ So while the default is : (id,host,port,callback), the following examples will s
     <span class="pl-c">//client</span>
     <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-en">emit</span>(
         [<span class="pl-c1">0x05</span>,<span class="pl-c1">0x6d</span>,<span class="pl-c1">0x5c</span>]
+    );
+</pre></div>
+
+<p>Writing explicit buffers, int types, doubles, floats etc. as well as big endian and little endian data to raw buffer nostly valuable when connecting to C or C++ processes, or embedded systems (see more detailed info on buffers as well as UInt, Int, double etc. here)[<a href="https://nodejs.org/api/buffer.html">https://nodejs.org/api/buffer.html</a>]:</p>
+
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">config</span>.<span class="pl-c1">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>;
+
+    <span class="pl-c">//make a 6 byte buffer for example</span>
+    <span class="pl-k">const</span> <span class="pl-c1">myBuffer</span><span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">Buffer</span>(<span class="pl-c1">6</span>).<span class="pl-en">fill</span>(<span class="pl-c1">0</span>);
+
+    <span class="pl-c">//fill the first 2 bytes with a 16 bit (2 byte) short unsigned int</span>
+
+    <span class="pl-c">//write a UInt16 (2 byte or short) as Big Endian</span>
+    <span class="pl-smi">myBuffer</span>.<span class="pl-en">writeUInt16BE</span>(
+        <span class="pl-c1">2</span>, <span class="pl-c">//value to write</span>
+        <span class="pl-c1">0</span> <span class="pl-c">//offset in bytes</span>
+    );
+    <span class="pl-c">//OR</span>
+    <span class="pl-smi">myBuffer</span>.<span class="pl-en">writeUInt16LE</span>(<span class="pl-c1">0x2</span>,<span class="pl-c1">0</span>);
+    <span class="pl-c">//OR</span>
+    <span class="pl-smi">myBuffer</span>.<span class="pl-en">writeUInt16LE</span>(<span class="pl-c1">0x02</span>,<span class="pl-c1">0</span>);
+
+    <span class="pl-c">//fill the remaining 4 bytes with a 32 bit (4 byte) long unsigned int</span>
+
+    <span class="pl-c">//write a UInt32 (4 byte or long) as Big Endian</span>
+    <span class="pl-smi">myBuffer</span>.<span class="pl-en">writeUInt32BE</span>(
+        <span class="pl-c1">16772812</span>, <span class="pl-c">//value to write</span>
+        <span class="pl-c1">2</span> <span class="pl-c">//offset in bytes</span>
+    );
+    <span class="pl-c">//OR</span>
+    <span class="pl-smi">myBuffer</span>.<span class="pl-en">writeUInt32BE</span>(<span class="pl-c1">0xffeecc</span>,<span class="pl-c1">0</span>)
+
+    <span class="pl-c">//server</span>
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-en">emit</span>(
+        socket,
+        myBuffer
+    );
+
+    <span class="pl-c">//client</span>
+    <span class="pl-smi">ipc</span>.<span class="pl-smi">server</span>.<span class="pl-en">emit</span>(
+        myBuffer
     );
 </pre></div>
 
 <h4>
-<a id="licensed-under-dbad-license" class="anchor" href="#licensed-under-dbad-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Licensed under DBAD license</h4>
+<a id="licensed-under-dbad-license" class="anchor" href="#licensed-under-dbad-license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Licensed under DBAD license</h4>
 
 <p>See the <a href="https://github.com/philsturgeon/dbad">DBAD license</a> in your language or our <a href="https://github.com/RIAEvangelist/node-phidget-API/blob/master/license.md">licence.md</a> file.</p>
       </section>

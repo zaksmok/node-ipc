@@ -163,7 +163,7 @@ function serverClosed(){
         this.publish('socket.disconnected', socket, destroyedSocketId);
 
         return;
-    }
+    }.bind(this)
 }
 
 function gotData(socket,data,UDPSocket){

@@ -17,7 +17,32 @@ ipc.config.retry= 600;
 ipc.config.silent=true;
 ipc.config.networkPort=8500;
 
+const secondIPC=new ipc.IPC;
+secondIPC.config.id = 'tcpClient2';
+secondIPC.config.retry= ipc.config.retry;
+secondIPC.config.silent=ipc.config.silent;
+secondIPC.config.networkPort=ipc.config.networkPort;
 
-ipc.connectToNet('tcpClient');
+ipc.connectToNet(
+  'testserver',
+  function(){
+    ipc.of.testserver.on(
+        'howdy',
+        function(data){
+            ipc.of.testserver.emit('hooray');
+        }
+    );
+  }
+);
 
-ipc.connectToNet('tcpClient2');
+secondIPC.connectToNet(
+  'testserver',
+  function(){
+    secondIPC.of.testserver.on(
+        'howdy',
+        function(data){
+            secondIPC.of.testserver.emit('hooray');
+        }
+    );
+  }
+);

@@ -66,7 +66,7 @@ class Server extends Events{
     }
 }
 
-function emit(sockets, type, data){
+function emit(socket, type, data){
     this.log('dispatching event to socket', ' : ', type, data);
 
     let message=new Message;
@@ -80,51 +80,63 @@ function emit(sockets, type, data){
         message=eventParser.format(message);
     }
 
-    if(!(sockets instanceof Array)){
-        sockets=[sockets];
-    }
 
-    for(const socket of sockets) {
-        if (this.udp4 || this.udp6) {
+    if (this.udp4 || this.udp6) {
 
-            if (!socket.address || !socket.port) {
-                this.log('Attempting to emit to a single UDP socket without supplying socket address or port. Redispatching event as broadcast to all connected sockets');
-                this.broadcast(type, data);
-                return;
-            }
-
-            this.server.write(
-                message,
-                socket
-            );
+        if (!socket.address || !socket.port) {
+            this.log('Attempting to emit to a single UDP socket without supplying socket address or port. Redispatching event as broadcast to all connected sockets');
+            this.broadcast(type, data);
             return;
         }
 
-        socket.write(message);
+        this.server.write(
+            message,
+            socket
+        );
+        return;
     }
+
+    socket.write(message);
 }
 
 function broadcast(type,data){
     this.log('broadcasting event to all known sockets listening to ', this.path,' : ', ((this.port)?this.port:''), type, data);
-    let message=new Message;
-    message.type=type;
-    message.data=data;
+    const message=buildBroadcast.bind(this)(type,data);
 
-    if(this.config.rawBuffer){
-        message=new Buffer(type,this.config.encoding);
-    }else{
-        message=eventParser.format(message);
-    }
+    sendBroadcast.bind(this)(this.sockets,message);
+}
 
-    if(this.udp4 || this.udp6){
-        for(let i=1, count=this.sockets.length; i<count; i++){
-            this.server.write(message,this.sockets[i]);
-        }
-    }else{
-        for(let i=0, count=this.sockets.length; i<count; i++){
-            this.sockets[i].write(message);
-        }
-    }
+function broadcastGroup(group,type,data){
+    this.log(`broadcasting event to all known clients.of.${group.id}`, type, data);
+    const message=buildBroadcast.bind(this)(type,data);
+
+    sendBroadcast.bind(this)(group,message);
+}
+
+function buildBroadcast(type,data){
+  let message=new Message;
+  message.type=type;
+  message.data=data;
+
+  if(this.config.rawBuffer){
+      message=new Buffer(type,this.config.encoding);
+  }else{
+      message=eventParser.format(message);
+  }
+
+  return message;
+}
+
+function sendBroadcast(sockets,message){
+  if(this.udp4 || this.udp6){
+      for(let i=0, count=sockets.length; i<count; i++){
+          this.server.write(message,sockets[i]);
+      }
+  }else{
+      for(let i=0, count=sockets.length; i<count; i++){
+          sockets[i].write(message);
+      }
+  }
 }
 
 function serverClosed(){
@@ -132,10 +144,8 @@ function serverClosed(){
         let socket=this.sockets[i];
         let destroyedSocketId=false;
 
-        if(socket){
-            if(socket.readable){
-                continue;
-            }
+        if(socket && socket.readable){
+            continue;
         }
 
         if(socket.id){
@@ -197,14 +207,21 @@ function gotData(socket,data,UDPSocket){
         let message=new Message;
         message.load(data.shift());
 
-        // Only set the sock id if it is specified.
-        if (!sock.id && message.data && message.data.id){
-            sock.id=message.data.id;
-            if(!this.of[sock.id]){
-                this.of[sock.id]=[];
-            }
-            this.of[sock.id].push(sock);
+        if(!sock.id){
+          sock.id='default';
         }
+
+        if (message.data && message.data.id){
+            sock.id=message.data.id;
+        }
+
+        if(!this.of[sock.id]){
+            const group=this.of[sock.id]=[];
+            group.id=sock.id;
+            group.broadcast=broadcastGroup.bind(this,group);
+        }
+
+        this.of[sock.id].push(sock);
 
         this.log('received event of : ',message.type,message.data);
 
